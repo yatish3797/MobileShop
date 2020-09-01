@@ -3,10 +3,12 @@ package com.axiom.mobileshop.model;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import com.axiom.mobileshop.beans.MobileHandset;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableList;
 import javax.net.ssl.HttpsURLConnection;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,14 +18,14 @@ import org.springframework.stereotype.Component;
 public class Cache {
 
     private String url;
-    private ImmutableList<MobileHandset> cache;
+    private List<MobileHandset> cache;
 
     public Cache() {
         this.url = "https://a511e938-a640-4868-939e-6eef06127ca1.mock.pstmn.io/handsets/list";
         initializeCache();
     }
 
-    public ImmutableList<MobileHandset> getCache() {
+    public List<MobileHandset> getCache() {
         return cache;
     }
 
@@ -34,7 +36,7 @@ public class Cache {
             con.setRequestMethod("GET");
             BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
             ObjectMapper objectMapper = new ObjectMapper();
-            cache = ImmutableList.copyOf(objectMapper.readValue(reader, MobileHandset[].class));
+            cache = Collections.unmodifiableList(Arrays.asList(objectMapper.readValue(reader, MobileHandset[].class)));
             reader.close();
         } catch (Exception e) {
             System.out.println("Exception occured while loading cache - " + e.getMessage());

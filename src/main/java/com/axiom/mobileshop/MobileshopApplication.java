@@ -9,7 +9,7 @@ public class MobileshopApplication {
     public static void main(String[] args) {
         System.out.println("Starting application");
         SpringApplication.run(MobileshopApplication.class, args);
-        System.out.println("Application Stopped");
+        System.out.println("Application Started");
     }
 
 }

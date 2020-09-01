@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Release {
     private String announceDate;
-    private Integer priceEur;
+    private String priceEur;
 
     public Release() {}
 
-    public Release(String announceDate, Integer priceEur) {
+    public Release(String announceDate, String priceEur) {
         this.announceDate = announceDate;
         this.priceEur = priceEur;
     }
@@ -22,11 +22,11 @@ public class Release {
         this.announceDate = announceDate;
     }
 
-    public Integer getPriceEur() {
+    public String getPriceEur() {
         return priceEur;
     }
 
-    public void setPriceEur(Integer priceEur) {
+    public void setPriceEur(String priceEur) {
         this.priceEur = priceEur;
     }
 }

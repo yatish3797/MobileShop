@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MobileHandset {
-    private Integer id;
+    private String id;
     private String brand;
     private String phone;
     private String picture;
@@ -15,15 +15,15 @@ public class MobileHandset {
 
     public MobileHandset() {}
 
-    public MobileHandset(Integer id) {
+    public MobileHandset(String id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -82,4 +82,33 @@ public class MobileHandset {
     public void setHardware(Hardware hardware) {
         this.hardware = hardware;
     }
+
+    public String getValue(String key) {
+        switch (key) {
+            case "id":
+                return getId();
+            case "brand":
+                return getBrand();
+            case "phone":
+                return getPhone();
+            case "picture":
+                return getPicture();
+            case "sim":
+                return getSim();
+            case "resolution":
+                return getResolution();
+            case "announceDate":
+                return getRelease().getAnnounceDate();
+            case "priceEur":
+                return getRelease().getPriceEur();
+            case "audioJack":
+                return getHardware().getAudioJack();
+            case "gps":
+                return getHardware().getGps();
+            case "battery":
+                return getHardware().getBattery();
+        }
+        return null;
+    }
+
 }
