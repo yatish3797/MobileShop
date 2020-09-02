@@ -1,5 +1,6 @@
 package com.axiom.mobileshop.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,13 +20,14 @@ public class Search {
     public List<MobileHandset> fetchSearchResult(Map<String, String> queryParams) {
         List<MobileHandset> allMobile = cache.getCache();
         Set<String> params = queryParams.keySet();
+        List<String> paramsWhichNeedRegexCompare = Arrays.asList("announceDate", "phone","sim","gps","battery");
         List searchResult = allMobile.parallelStream().filter( mobileData -> {
             for(String param : params) {
                 if(mobileData.getValue(param) == null) {
                     throw new InvalidParameterException("Invalid Parameter passed - " + param);
                 }
-                if(param.equalsIgnoreCase("announceDate")) {
-                    if(!mobileData.getValue(param).contains(queryParams.get(param))) {
+                if(paramsWhichNeedRegexCompare.contains(param)) {
+                    if(!mobileData.getValue(param).toLowerCase().contains(queryParams.get(param).toLowerCase())) {
                         return false;
                     }
                 } else {
